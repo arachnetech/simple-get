@@ -78,6 +78,7 @@ function simpleGet (opts, cb) {
 simpleGet.concat = (opts, cb) => {
   return simpleGet(opts, (err, res) => {
     if (err) return cb(err)
+    if (res.statusCode !== 200) return cb(null,res) // <!--- required in Node.js 14
     concat(res, (err, data) => {
       if (err) return cb(err)
       if (opts.json) {
